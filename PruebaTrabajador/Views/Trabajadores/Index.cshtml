@@ -1,0 +1,184 @@
+﻿@model IEnumerable<PruebaTrabajador.Models.Trabajadore>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="container-fluid bg-muted">
+    <div class="custom-container">
+        <h1 class="text-center text-bluelight font-weight-900">Listado de Trabajadores</h1>
+    </div>
+</div>
+
+
+
+<a asp-action="AddorEdit" asp-route-id="-1" class="btn btn-success btn-custom"  style="background-color: #008CBA";"padding: 8px 20px">Nuevo Registro</a>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Index" id="formFiltrar">
+            <div class="form-group col-4">
+                <label for="cboSexo" class="control-label"></label>
+                <select id="cboSexo" name="sexo" class="form-control">
+                    <option value="">TODOS</option>
+                    <option value="M" selected="@((string)ViewBag.sexo == "M")">Masculino</option>
+                    <option value="F" selected="@((string)ViewBag.sexo == "F")">Femenino</option>
+                </select>
+
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-outline-success">FILTRAR</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="col-12 bg-muted px-4">
+    <div class="row mt-2">
+        <div class="col-12 mx-auto">
+            <div class="card border-0">
+                <div class="card-body table-responsive p-0">
+                    <table id="example2" style="width:100%" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="t-title">
+                                    @Html.DisplayNameFor(model => model.Id)
+                                </th>
+                                <th scope="col" class="t-title">
+                                    @Html.DisplayNameFor(model => model.TipoDocumento)
+                                </th>
+                                <th scope="col" class="t-title">
+                                    @Html.DisplayNameFor(model => model.NumeroDocumento)
+                                </th>
+                                <th scope="col" class="t-title">
+                                    @Html.DisplayNameFor(model => model.Nombres)
+                                </th>
+                                <th scope="col" class="t-title">
+                                    @Html.DisplayNameFor(model => model.Sexo)
+                                </th>
+                                <th scope="col" class="t-title">
+                                    @Html.DisplayNameFor(model => model.IdDepartamento)
+                                </th>
+                                <th scope="col" class="t-title">
+                                    @Html.DisplayNameFor(model => model.IdDistrito)
+                                </th>
+
+                                <th scope="col" class="t-title">
+                                    @Html.DisplayNameFor(model => model.IdProvincia)
+                                </th>
+
+                                <th>
+                                    Accion
+                                </th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                                {
+
+                                        
+                                    <tr class="@(item.Sexo.Trim().Equals("M") ? "bg-primary text-white" : "bg-orange text-white")" >
+                                        
+                                   
+                                        <td class="text-primary">
+                                            <button type="button" class="btn btn-outline-dark" onclick="OpenModal('@item.Id')" data-toggle="modal" data-target="#staticBackdrop">
+                                                @Html.DisplayFor(modelItem => item.Id)
+                                            </button>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TipoDocumento)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NumeroDocumento)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nombres)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Sexo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdDepartamento)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdDistrito)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdProvincia)
+                                        </td>
+
+                                        <td class="text-primary">
+                                            <form asp-action="Delete" asp-route-id="@item.Id">
+                                                <div class="btn-group btn-group-sm">
+                                                    <a asp-action="AddorEdit" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Esta Seguro de Borrar este Registro?');"><i class="far fa-trash-alt"></i>Eliminar</button>
+                                                </div>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--Modal -->
+<!--<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Item </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
+
+
+<div class="modal" id="miModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+          
+            <div class="modal-header">
+                <h5 class="modal-title">Mi Modal</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+        
+            <div class="modal-body">
+                Contenido del modal...
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar cambios</button>
+            </div>
+
+        </div>
+    </div>
+</div>

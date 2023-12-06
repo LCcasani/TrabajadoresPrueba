@@ -1,0 +1,111 @@
+﻿@model PruebaTrabajador.Models.Trabajadore
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="col-12 bg-muted px-5">
+    <div class="row mt-5">
+        <div class="col-6">
+            <p class="text-bluelight font-weight-900 text-titles">LISTADO DE TRABAJADORES </p>
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+</div>
+
+<h4>Listado De Trabajadores</h4>
+
+<div class="col-12 bg-muted px-4">
+    <div class="row mt-2">
+        <div class="col-12 mx-auto">
+            <div class="card border-0">
+                <div class="card-body table-responsive p-0">
+                    <form asp-action="AddorEdit" style="width:100%;">
+                        <input type="hidden" asp-for="Id" class="form-control" />
+                        <div class="row justify-content-start">
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div><input type="hidden" asp-for="Id" id="txtid" />
+                            <input asp-for="Id" type="hidden" class="form-control" />
+
+                            <div class="form-group col-4">
+                                <label asp-for="TipoDocumento" class="control-label"></label>
+                                <input asp-for="TipoDocumento" class="form-control" />
+                                <span asp-validation-for="TipoDocumento" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-4">
+                                <label asp-for="NumeroDocumento" class="control-label"></label>
+                                <input asp-for="NumeroDocumento" class="form-control" />
+                                <span asp-validation-for="NumeroDocumento" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-4">
+                                <label asp-for="Nombres" class="control-label"></label>
+                                <input asp-for="Nombres" class="form-control" />
+                                <span asp-validation-for="Nombres" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-4">
+                                <label asp-for="Sexo" class="control-label"></label>
+                                <select asp-for="Sexo" class="form-control">
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                </select>
+                                <span asp-validation-for="Sexo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-4">
+                                <label asp-for="IdDepartamento" class="control-label"></label>
+                                <select asp-for="IdDepartamento" class="form-control" asp-items="ViewBag.Departamento" onchange="getProvincias()">
+                                    <option value="Seleccione">--Seleccione--</option>
+                                </select>
+                                <span asp-validation-for="IdDepartamento" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="form-group col-4">
+                                <label asp-for="IdProvincia" class="control-label"></label>
+                                <select asp-for="IdProvincia" class="form-control" onchange="getDistritos()">
+                                </select>
+                                <span asp-validation-for="IdProvincia" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group col-4">
+                                <label asp-for="IdDistrito" class="control-label"></label>
+                                <select asp-for="IdDistrito" class="form-control">
+                                </select>
+                                <span asp-validation-for="IdDistrito" class="text-danger"></span>
+                            </div>
+
+
+
+
+                            <div class="form-group col-12">
+                                <input type="submit" value="Guardar" class="btn btn-bluelight font-weight-300 mt-3" />
+                                <a asp-action="Index" class="btn btn-bluelight font-weight-300 mt-3">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+
+        const model = @Html.Raw(Json.Serialize(Model));
+        const urlGetProvincias ='@Url.Action("GetProvincias","Trabajadores")'
+         const urlGetDistritos ='@Url.Action("GetDistritos","Trabajadores")'
+    </script>
+
+    <script src="~/js/modules/trabajadores/editTrabajador.js" asp-append-version="true"></script>
+
+}
+
+
+
+
+@*                    <form onsubmit="SaveDetailInvoice()" id="formInvoiceDetail" style="width:100%;">
+*@
