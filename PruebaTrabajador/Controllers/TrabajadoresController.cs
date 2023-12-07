@@ -38,49 +38,6 @@ namespace PruebaTrabajador.Controllers
         }
 
 
-        public async Task<IActionResult> Detail(int? id)
-        {
-
-            if (_context.Trabajadores == null)
-            {
-                return NotFound();
-            }
-
-            var trabajadore = await _context.Trabajadores
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (trabajadore == null)
-            {
-                return NotFound();
-            }
-
-            return View(trabajadore);
-
-        }
-
-
-        //GET: Trabajadores/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-
-        // POST: Trabajadores/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromForm] Trabajadore trabajadore)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(trabajadore);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(trabajadore);
-        }
-
 
 
         //GET: Trabajadores/Edit/5
